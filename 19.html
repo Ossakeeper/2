@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+   
+</head>
+<style>
+    .navbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 50px;
+        background-color: var(--yellow);
+        color: white;
+        padding: 10px;
+    }
+
+    .burger {
+        display: flex;
+        position: relative;
+        z-index: 100;
+        align-items: center;
+        justify-content: flex-end;
+        width: 30px;
+        height: 18px;
+    }
+
+    .burger span {
+        height: 2px;
+        width: 100%;
+        transform: scale(1);
+        background-color: white;
+    }
+
+    .burger::before, .burger::after {
+        content: '';
+        position: absolute;
+        height: 2px;
+        width: 100%;
+        background-color: white;
+        transition: all 0.5s ease 0s;
+    }
+
+    .burger::before {
+        top: 0;
+    }
+
+    .burger::after {
+        bottom: 0;
+    }
+
+    .burger.active span {
+        transform: scale(0);
+    }
+
+    .burger.active::before {
+        top: 50%;
+        transform: rotate(-45deg) translate(0, -51%);
+    }
+
+    .burger.active::after {
+        top: 50%;
+        transform: rotate(45deg) translate(0, 51%);
+    }
+
+    
+    .mobile-menu {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        height: 100%;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 50;
+        overflow-y: auto;
+        padding: 50px 40px;
+        background-color: gray;
+        animation: burgerAnim 0.4s;
+        overflow-x: hidden;
+    }
+    .mobile-menu>ul>li>a {
+        color: #dddddd;
+        text-decoration: none;
+        font-size: 40px;
+    }
+    .mobile-menu>ul {
+        display: flex;
+        flex-direction: column;
+    }
+    .mobile-menu>ul>li {
+        padding: 10px;
+    }
+    .mobile-menu {
+        width: 100%;
+        padding: 0 40px;
+    }
+    .mobile-menu ul {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+    }
+    @keyframes burgerAnim {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    .burger.active {
+        display: flex;
+    }
+    .mobile-menu.open {
+        display: flex;
+    }
+    :root {
+    --blue:    #0d6efd;
+    --indigo:  #6610f2;
+    --purple:  #6f42c1;
+    --pink:    #d63384;
+    --red:     #dc3545;
+    --orange:  #fd7e14;
+    --yellow:  #ffc107;
+    --green:   #198754;
+    --teal:    #20c997;
+    --cyan:    #0dcaf0;
+
+    --main-round-border: 13px;
+    --color-silver-light: #ddd;
+    --color-silver-light-2: #bebebe;
+    --bg-success: #177d4d;
+    --border-success: #156c43;
+    --bg-hover-succes: #188150;
+    --color-danger: var(--red);
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+</style>
+<body>
+<div class="navbar">
+    <div class="burger">
+        <span></span>
+    </div>
+    <nav id="mobileMenu" class="mobile-menu">
+        <ul>
+            <li><a href="#">A</a></li>
+            <li><a href="#">B</a></li>
+            <li><a href="#">C</a></li>
+            <li><a href="#">D</a></li>
+        </ul>
+    </nav>
+</div>
+
+<script>
+    document.querySelector('.burger').addEventListener('click', function() {
+        this.classList.toggle('active');
+        document.querySelector('.mobile-menu').classList.toggle('open')
+    });
+</script>
+</body>
+</html>

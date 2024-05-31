@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Alternates:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
+    <title>Document</title>
+    
+    <style>
+        .form-ad {
+            font-family: "Montserrat Alternates", sans-serif;
+            font-weight: 400;
+            padding: 15px;
+            margin: 15px;
+            border: 1px solid var(--color-silver-light);
+            border-radius: var(--main-round-border);
+            max-height: 150px;
+        }
+        .form-ad__container_grid {
+            display: grid;
+            grid-template-columns: 1fr 4fr 1fr 1fr;
+            grid-gap: 10px;
+        }
+        .form-ad__container_flex {
+            display: flex;
+            gap: 10px
+        }
+        .form-ad__container_flex_vertical {
+            flex-direction: column;
+        }
+        .form-ad__container_flex_between {
+            justify-content: space-between;
+        }
+        .form-ad__ad-image {
+            width: 100%;
+            height: 100%;
+        }
+        .form-ad__ad-image>img {
+            min-width: 100px;
+            max-height: 140px;
+            width: 100%;
+        }
+        .form-ad__quantity-input {
+            box-sizing: border-box;
+            width: 100%;
+            border: 1px solid var(--color-silver-light-2);
+            border-radius: var(--main-round-border);
+            height: 30px;
+            margin-top: 5px;
+            font-size: 1em;
+            padding: 2px 10px 2px 10px;
+        }
+        .form-ad__title {
+            font-size: 1.3rem;
+        }
+        .btn {
+            border-radius: var(--main-round-border);
+            border-width: 1px;
+            border-style: solid;
+            cursor: pointer;
+            padding: 0.37rem 0.75rem 0.37rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+        }
+        .btn_success {
+            border-color: var(--border-success);
+            background-color: var(--bg-success);
+            color: white;
+        }
+        .btn_danger {
+            border-color: #734141;
+            background-color: #ff6363;
+            color: white;
+        }
+        .btn_success:hover {
+            background-color: var(--bg-hover-succes);
+        }
+        :root {
+            --green:   #198754;
+            --main-round-border: 13px;
+            --color-silver-light: #ddd;
+            --color-silver-light-2: #bebebe;
+            --bg-success: #177d4d;
+            --border-success: #156c43;
+            --bg-hover-succes: #188150;
+            --color-danger: var(--red);
+        }
+        body {
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<form class="form-ad" action="">
+    <div class="form-ad__container_grid">
+        <div class="form-ad__ad-image">
+            <img src="d.png">
+        </div>
+        <div class="form-ad__container_flex form-ad__container_flex_vertical">
+            <div class="form-ad__title">خيار</div>
+            <div class="form-ad__description">سلالة حاكمة</div>
+        </div>
+        <div class="form-ad__price">5</div>
+        <div class="form-ad__container_flex form-ad__container_flex_vertical form-ad__container_flex_between">
+            <div class="form-ad__quantity">
+                <label>
+                    <input class="form-ad__quantity-input" type="number" name="quantity" value="1">
+                </label>
+            </div>
+            <button class="btn btn_success" onclick="alert('Sold')">Buy</button>
+        </div>
+    </div>
+</form>
+
+<script>
+const quantity = document.getElementsByClassName('form-ad__quantity');
+let price = [];
+for (let i = 0; i < quantity.length; i++) {
+    quantity[i].addEventListener('change', (e) => {
+        let card = e.target.parentNode.parentNode.parentNode.parentNode;
+
+        if (price[i] === undefined) {
+            price[i] = Number(card.children[2].textContent);
+        }
+
+        card.children[2].textContent = price[i] * Number(e.target.value);
+    })
+}
+</script>
+</body>
+</html>

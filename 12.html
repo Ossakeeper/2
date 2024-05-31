@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .base, .base_box_1 {
+            text-decoration: none;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        .basebar {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            background-color: green;
+            padding: 0 10px 0 10px;
+        }
+        .base {
+            display: flex;
+            flex-direction: row;
+            gap:15px;
+        }
+        .base_el_1 {
+            cursor: pointer;
+            background-color: yellowgreen;
+            padding: 30px;
+        }
+        .base_box_1 {
+            display: none;
+            background-color: peru;
+            padding: 15px;
+        }
+        .base_el_2 {
+            padding: 15px;
+        }
+        .base_el_1_more {
+            position: relative;
+        }
+        .base_el_1_more:hover .base_box_1 {
+            display: block;
+            position: absolute;
+            top:77px;
+            left: 0;
+        }
+        .base_el_1:hover, .base_el_2:hover {
+            background-color: rgba(197, 115, 115, 0.91);
+        }
+    </style>
+</head>
+<body>
+<div class="basebar">
+    <ul class="base">
+        <li class="base_el_1">A</li>
+        
+        <li class="base_el_1 base_el_1_more">B
+            <ul class="base_box_1">
+                <li class="base_el_2">A</li>
+                <li class="base_el_2">B</li>
+                <li class="base_el_2">C</li>
+                <li class="base_el_2">D</li>
+            </ul>
+        </li>
+        <li class="base_el_1 base_el_1_more">C
+            <ul class="base_box_1">
+                <li class="base_el_2">A</li>
+                <li class="base_el_2">B</li>
+                <li class="base_el_2">C</li>
+                <li class="base_el_2">D</li>
+            </ul>
+        </li>
+        <li class="base_el_1 base_el_1_more">D
+            <ul class="base_box_1">
+                <li class="base_el_2">A</li>
+                <li class="base_el_2">B</li>
+                <li class="base_el_2">C</li>
+                <li class="base_el_2">D</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>

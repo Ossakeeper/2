@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="style/form.css" rel="stylesheet">
+    <link href="style/btn.css" rel="stylesheet">
+    <link href="style/var.css" rel="stylesheet">
+</head>
+<style>
+    .btn {
+    border-radius: var(--main-round-border);
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer;
+    padding: 0.37rem 0.75rem 0.37rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.btn_success {
+    border-color: var(--border-success);
+    background-color: var(--bg-success);
+    color: white;
+}
+.btn_danger {
+    border-color: #734141;
+    background-color: #ff6363;
+    color: white;
+}
+.btn_success:hover {
+    background-color: var(--bg-hover-succes);
+}
+.form-vertical {
+    display: flex;
+    flex-direction: column;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 400;
+    padding: 15px;
+    margin: 15px;
+}
+.form-vertical_round {
+    border: 1px solid var(--color-silver-light);
+    border-radius: var(--main-round-border);
+}
+.form__header {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+}
+.form__input {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid var(--color-silver-light-2);
+    border-radius: var(--main-round-border);
+    height: 30px;
+    margin-top: 5px;
+    font-size: 1em;
+    padding: 2px 10px 2px 10px;
+}
+
+.form__input_error {
+    color: var(--red);
+    border-color: var(--red);
+}
+
+.form__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.form__textarea {
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+    border: 1px solid var(--color-silver-light-2);
+    border-radius: var(--main-round-border);
+    margin-top: 5px;
+    font-size: 1em;
+    padding: 10px 10px 10px 10px;
+    height: 50px;
+    min-height: 50px;
+}
+.form__group:last-child {
+    margin-bottom: 0;
+}
+:root {
+    --blue:    #0d6efd;
+    --indigo:  #6610f2;
+    --purple:  #6f42c1;
+    --pink:    #d63384;
+    --red:     #dc3545;
+    --orange:  #fd7e14;
+    --yellow:  #ffc107;
+    --green:   #198754;
+    --teal:    #20c997;
+    --cyan:    #0dcaf0;
+
+    --main-round-border: 13px;
+    --color-silver-light: #ddd;
+    --color-silver-light-2: #bebebe;
+    --bg-success: #177d4d;
+    --border-success: #156c43;
+    --bg-hover-succes: #188150;
+    --color-danger: var(--red);
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+</style>
+<body>
+<div style="display:flex; justify-content: center">
+    <form class="form-vertical form-vertical_round" style="width: 300px" action="" id="myForm">
+        <p id="errorMessage" class="btn btn_danger" style="display: none">Неверно заполнены поля.</p>
+
+        <div class="form__header">Регистрация</div>
+        <div class="form__group">
+            <label for="name"> имя </label>
+            <input class="form__input" type="text" id="name" name="name" placeholder="name" required>
+        </div>
+        <div class="form__group">
+            <label for="email"> email </label>
+            <input class="form__input" name="email" type="email" id="email" placeholder="email@mail.ru">
+        </div>
+        <div class="form__group">
+            <label for="password"> пароль </label>
+            <input class="form__input" type="password" id="password" name="password">
+        </div>
+        <div class="form__group">
+            <label for="password2"> повторите пароль </label>
+            <input class="form__input" type="password" id="password2" name="password">
+        </div>
+        <button class="btn btn_success" type="submit">зарегистрироваться</button>
+    </form>
+</div>
+
+<script>
+    let message = '';
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); 
+            document.getElementById('errorMessage').style.display = 'block';
+            document.getElementById('errorMessage').textContent = message;
+        }
+    });
+
+    function validateForm() {
+        let nameInput = document.getElementById('name');
+        let emailInput = document.getElementById('email');
+        let passwordInput = document.getElementById('password');
+        let password2Input = document.getElementById('password2');
+
+        let name = nameInput.value.trim();
+        let email = emailInput.value.trim();
+        let password = passwordInput.value.trim();
+        let password2 = password2Input.value.trim();
+
+        if (name === '') {
+            nameInput.classList.add('form__input_error');
+            message = 'Имя не указано';
+            return false;
+        } else {
+            nameInput.classList.remove('form__input_error');
+        }
+
+        let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email.match(emailPattern)) {
+            message = 'неверный формат email';
+            emailInput.classList.add('form__input_error');
+            return false;
+        } else {
+            emailInput.classList.remove('form__input_error');
+        }
+
+        if (!checkPassword(password)) {
+            passwordInput.classList.add('form__input_error');
+            message = 'пароль должен иметь 6 символов или больше, обязательно должны быть символы .?#%, строчные и заглавные буквы';
+            return false;
+        } else {
+            passwordInput.classList.remove('form__input_error');
+        }
+
+        if (password !== password2) {
+            passwordInput.classList.add('form__input_error');
+            password2Input.classList.add('form__input_error');
+            message = 'пароли не совпадают';
+            return false;
+        } else {
+            passwordInput.classList.remove('form__input_error');
+            password2Input.classList.remove('form__input_error');
+        }
+
+        return true;
+    }
+
+    function checkPassword(password) {
+        if (password.length < 6) {
+            return false;
+        }
+
+        if (!/[.?#%]/.test(password)) {
+            return false;
+        }
+
+        if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+            return false;
+        }
+
+        return true;
+    }
+</script>
+</body>
+</html>

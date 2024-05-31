@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    .btn {
+    border-radius: var(--main-round-border);
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer;
+    padding: 0.37rem 0.75rem 0.37rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 1px rgba(0, 0, 0, 0.075);
+}
+.btn_success {
+    border-color: var(--border-success);
+    background-color: var(--bg-success);
+    color: white;
+}
+.btn_danger {
+    border-color: #734141;
+    background-color: #ff6363;
+    color: white;
+}
+.btn_success:hover {
+    background-color: var(--bg-hover-succes);
+}
+.form-vertical {
+    display: flex;
+    flex-direction: column;
+    font-family: "Montserrat Alternates", sans-serif;
+    font-weight: 400;
+    padding: 15px;
+    margin: 15px;
+}
+.form-vertical_round {
+    border: 1px solid var(--color-silver-light);
+    border-radius: var(--main-round-border);
+}
+.form__header {
+    text-align: center;
+    font-size: 1.3em;
+    margin-bottom: 20px;
+}
+.form__input {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid var(--color-silver-light-2);
+    border-radius: var(--main-round-border);
+    height: 30px;
+    margin-top: 5px;
+    font-size: 1em;
+    padding: 2px 10px 2px 10px;
+}
+
+.form__input_error {
+    color: var(--red);
+    border-color: var(--red);
+}
+
+.form__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+.form__textarea {
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+    border: 1px solid var(--color-silver-light-2);
+    border-radius: var(--main-round-border);
+    margin-top: 5px;
+    font-size: 1em;
+    padding: 10px 10px 10px 10px;
+    height: 50px;
+    min-height: 50px;
+}
+.form__group:last-child {
+    margin-bottom: 0;
+}
+:root {
+    --blue:    #0d6efd;
+    --indigo:  #6610f2;
+    --purple:  #6f42c1;
+    --pink:    #d63384;
+    --red:     #dc3545;
+    --orange:  #fd7e14;
+    --yellow:  #ffc107;
+    --green:   #198754;
+    --teal:    #20c997;
+    --cyan:    #0dcaf0;
+
+    --main-round-border: 13px;
+    --color-silver-light: #ddd;
+    --color-silver-light-2: #bebebe;
+    --bg-success: #177d4d;
+    --border-success: #156c43;
+    --bg-hover-succes: #188150;
+    --color-danger: var(--red);
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+table {
+    border: 2px solid rgb(140 140 140);
+    border-collapse: collapse;
+}
+td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 10px;
+}
+tbody tr:nth-child(odd) {
+    background-color: #ddd;
+}
+</style>
+<head>
+    <title>Табличное представление данных</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            cursor: pointer;
+        }
+
+        .filter-input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div style="display:flex; flex-direction:column; justify-content: center; align-items: center; text-align: center;">
+    <div style="width: 80%">
+        <h1>Сортировка</h1>
+        <label>
+            <input type="text" id="filterInput" class="filter-input form__input" placeholder="Фильтр">
+        </label>
+
+        <table id="dataTable">
+            <thead>
+            <tr>
+                <th onclick="sortTable(0)">A</th>
+                <th onclick="sortTable(1)">B</th>
+                <th onclick="sortTable(2)">C</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>abc</td>
+                <td>25</td>
+                <td>@#</td>
+            </tr>
+            <tr>
+                <td>bcd</td>
+                <td>330</td>
+                <td>%#$</td>
+            </tr>
+            <tr>
+                <td>bfg</td>
+                <td>28</td>
+                <td>Киев</td>
+            </tr>
+            <tr>
+                <td>www</td>
+                <td>222</td>
+                <td>@#</td>
+            </tr>
+            <tr>
+                <td>aaa</td>
+                <td>22</td>
+                <td>%$</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<script>
+    function sortTable(columnIndex) {
+        let table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("dataTable");
+        switching = true;
+
+        while (switching) {
+            switching = false;
+            rows = table.getElementsByTagName("tr");
+
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[columnIndex];
+                y = rows[i + 1].getElementsByTagName("td")[columnIndex];
+
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+            }
+        }
+    }
+
+    document.getElementById("filterInput").addEventListener("input", function() {
+        let filterValue = this.value.toLowerCase();
+        let table = document.getElementById("dataTable");
+        let rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            let rowData = rows[i].getElementsByTagName("td");
+            let showRow = false;
+
+            for (let j = 0; j < rowData.length; j++) {
+                let cellData = rowData[j].innerHTML.toLowerCase();
+
+                if (cellData.indexOf(filterValue) > -1) {
+                    showRow = true;
+                    break;
+                }
+            }
+
+            rows[i].style.display = showRow ? "" : "none";
+        }
+    });
+</script>
+</body>
+</html>
