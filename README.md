@@ -55,7 +55,7 @@
 
 
 <h1 style="text-align: center">Решения</h1>
-
+```
 <h2 style="text-align: center">Файл 1.html</h2>
 ```html
 <!DOCTYPE html>
